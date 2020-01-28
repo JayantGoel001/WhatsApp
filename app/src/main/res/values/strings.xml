@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">WhatsApp+</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="agree_and_continue">AGREE AND CONTINUE</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="help">Help</string>
+    <string name="whatsapp_will_send_an_sms_message_to_verify_your_phone">WhatsApp will send an SMS message to verify your phone</string>
+    <string name="number">number.</string>
+    <string name="what_s_my_number">What\'s my number?</string>
+    <string name="title_activity_choose_acountry">ChooseACountry</string>
+    <string name="plus">+</string>
+    <string name="_91">91</string>
+    <string name="carrier_sms_charges_may_apply">Carrier SMS charges may apply</string>
+    <string name="next">NEXT</string>
+
+</resources>
