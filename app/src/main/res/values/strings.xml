@@ -9,9 +9,13 @@
     <string name="number">number.</string>
     <string name="what_s_my_number">What\'s my number?</string>
     <string name="title_activity_choose_acountry">ChooseACountry</string>
-    <string name="plus">+</string>
+    <string name="plus"> +</string>
     <string name="_91">91</string>
     <string name="carrier_sms_charges_may_apply">Carrier SMS charges may apply</string>
     <string name="next">NEXT</string>
+    <string name="read">We didn\'t detect a valid phone number.\nPlease go back to the previous screen and enter your phone \nnumber in full international format:\n\t\t1.Choose your country from country list. This will\n\t\tautomatically fill the country code.\n\n\t\t2.Enter your phone number. Omit any leading 0s before \n\t\t the phone number.\nFor example, a correct United States phone number will\nappear as +1 (408) 555-1234 after being entered.\nFor more information, please read our\t\t\t.</string>
+    <string name="problem_detected">Problem detected</string>
+    <string name="faq">FAQ</string>
+    <string name="this_doesn_t_answered_my_question">This doesn\'t answered my question</string>
 
 </resources>
