@@ -2,6 +2,7 @@ package com.example.whatsapp
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -23,6 +24,7 @@ import org.json.JSONException
 class ChooseACountry : AppCompatActivity() {
     private var countryList:ArrayList<CountryData> = ArrayList()
     private var url="https://restcountries.eu/rest/v2/all"
+    lateinit var initialName:String
     private lateinit var adapter:CountryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +32,8 @@ class ChooseACountry : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        adapter=CountryAdapter(countryList,this)
+        initialName=intent.extras!!.get("countryName").toString()
+        adapter=CountryAdapter(countryList,this,initialName)
         val linearLayoutManager=LinearLayoutManager(this)
         linearLayoutManager.orientation=LinearLayoutManager.VERTICAL
         val divideItemDecoration=DividerItemDecoration(this,linearLayoutManager.orientation)
@@ -57,7 +60,13 @@ class ChooseACountry : AppCompatActivity() {
                                 jsonObject.getString("flag"),
                                 jsonObject.getString("nativeName")
                             )
-                            countryList.add(countryData)
+                            if(countryData.name==initialName)
+                            {
+                                countryList.add(0,countryData)
+                            }
+                            else {
+                                countryList.add(countryData)
+                            }
                         }
                     }
                 } catch (e:JSONException) {
@@ -72,5 +81,11 @@ class ChooseACountry : AppCompatActivity() {
         })
         val requestQueue=Volley.newRequestQueue(this)
         requestQueue.add(jsonArrayRequest)
+    }
+
+    override fun onBackPressed() {
+        val intent=Intent(this,EnterYourPhoneNumber::class.java)
+        startActivity(intent)
+        super.onBackPressed()
     }
 }
