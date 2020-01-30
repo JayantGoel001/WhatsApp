@@ -17,5 +17,7 @@
     <string name="problem_detected">Problem detected</string>
     <string name="faq">FAQ</string>
     <string name="this_doesn_t_answered_my_question">This doesn\'t answered my question</string>
+    <string name="india">India</string>
+    <string name="_91_">+91</string>
 
 </resources>
