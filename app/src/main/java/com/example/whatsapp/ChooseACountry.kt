@@ -45,47 +45,45 @@ class ChooseACountry : AppCompatActivity() {
     }
 
     private fun getData() {
-        val progressDialog=ProgressDialog(this)
+        val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Loading..")
         progressDialog.show()
-        val jsonArrayRequest=JsonArrayRequest(url,
+        val jsonArrayRequest = JsonArrayRequest(url,
             Response.Listener<JSONArray> { response ->
                 try {
                     for (i in 0 until response.length()) {
                         val jsonObject = response.getJSONObject(i)
-                        if(jsonObject.getString("callingCodes").length in 5..8) {
+                        if (jsonObject.getString("callingCodes").length in 5..8) {
                             val countryData = CountryData(
                                 jsonObject.getString("name"),
                                 jsonObject.getString("callingCodes"),
                                 jsonObject.getString("flag"),
                                 jsonObject.getString("nativeName")
                             )
-                            if(countryData.name==initialName)
-                            {
-                                countryList.add(0,countryData)
-                            }
-                            else {
+                            if (countryData.name == initialName) {
+                                countryList.add(0, countryData)
+                            } else {
                                 countryList.add(countryData)
                             }
                         }
                     }
-                } catch (e:JSONException) {
+                } catch (e: JSONException) {
                     e.printStackTrace()
                     progressDialog.dismiss()
                 }
                 adapter.notifyDataSetChanged()
                 progressDialog.dismiss()
             }, Response.ErrorListener {
-                Toast.makeText(this,"Network Error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show()
                 progressDialog.dismiss()
-        })
-        val requestQueue=Volley.newRequestQueue(this)
+            })
+        val requestQueue = Volley.newRequestQueue(this)
         requestQueue.add(jsonArrayRequest)
     }
 
     override fun onBackPressed() {
-        val intent=Intent(this,EnterYourPhoneNumber::class.java)
-        startActivity(intent)
+        finish()
         super.onBackPressed()
     }
+
 }

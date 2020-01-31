@@ -1,41 +1,95 @@
 package com.example.whatsapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.*
+import androidx.core.widget.addTextChangedListener
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_enter_your_phone_number.*
+import org.json.JSONArray
+import org.json.JSONException
 import java.util.zip.Inflater
 
 @Suppress("CAST_NEVER_SUCCEEDS")
 class EnterYourPhoneNumber : AppCompatActivity() {
-
+    private var url="https://restcountries.eu/rest/v2/all"
+    private var countryList=HashMap<String,String>()
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_your_phone_number)
-
         setSupportActionBar(toolbar)
-        val str:String = if(intent.getStringExtra("CountryName")==null) {
+        getArrayInitialized()
+        var countryCode= "+91"
+        var str:String = if(intent.getStringExtra("CountryName")==null) {
+            countryCode="+91"
             "India"
         } else {
-            countryCodeNumber.setText(intent.getStringExtra("CountryCode")!!,TextView.BufferType.EDITABLE)
+            countryCode=intent.getStringExtra("CountryCode")!!
+            countryCodeNumber.setText(countryCode,TextView.BufferType.EDITABLE)
             intent.getStringExtra("CountryName")!!
         }
-
-        val adapter=ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, arrayOf(str))
+        var adapter=ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, arrayOf(str))
         spinner.adapter=adapter
-        spinner.setOnTouchListener { v, event ->
+        spinner.setOnTouchListener { _, _ ->
             val intent=Intent(this, ChooseACountry::class.java)
             intent.putExtra("countryName",str)
             startActivity(intent)
             true
         }
+        whatsMyNumber.setOnClickListener {
+            val toast=Toast.makeText(this,"Unable to get phone number from SIM. Please type in your phone number",Toast.LENGTH_LONG)
+            toast.setGravity(Gravity.CENTER,0,0)
+            toast.show()
+        }
+        countryCodeNumber.addTextChangedListener{
+            str = when {
+                countryCodeNumber.text.toString() in countryList -> {
+                    countryCode=countryCodeNumber.text.toString()
+                    countryList[countryCode]!!
+                }
+                countryCodeNumber.text.toString().isEmpty() -> {
+                    "Choose a country"
+                }
+                else -> {
+                    "invalid country code"
+                }
+            }
+            adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item, arrayOf(str))
+            spinner.adapter=adapter
+        }
+
+
+
+    }
+
+    private fun getArrayInitialized() {
+        val jsonArrayRequest = JsonArrayRequest(url,
+            Response.Listener<JSONArray> { response ->
+                try {
+                    for (i in 0 until response.length()) {
+                        val jsonObject = response.getJSONObject(i)
+                        if (jsonObject.getString("callingCodes").length in 5..8) {
+                                countryList[(jsonObject.getString("callingCodes"))
+                                    .substring(2,(jsonObject.getString("callingCodes"))
+                                        .lastIndexOf("\""))]=jsonObject.getString("name")
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }, Response.ErrorListener {
+                Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show()
+            })
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(jsonArrayRequest)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,6 +106,4 @@ class EnterYourPhoneNumber : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
 }

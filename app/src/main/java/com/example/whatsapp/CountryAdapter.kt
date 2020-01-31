@@ -38,6 +38,7 @@ class CountryAdapter(val arr:ArrayList<CountryData>,val context:Context,val str:
         {
             holder.countryName.setTextColor(Color.parseColor("#00574B"))
             holder.countryName.textSize=20.0f
+            holder.countryLanguage.textSize=20.0f
             holder.countryCode.setTextColor(Color.parseColor("#00574B"))
             holder.countryLanguage.setTextColor(Color.parseColor("#00574B"))
             holder.tick.isVisible=true
@@ -45,7 +46,8 @@ class CountryAdapter(val arr:ArrayList<CountryData>,val context:Context,val str:
         else
         {
             holder.countryName.setTextColor(Color.parseColor("#000000"))
-            holder.countryName.textSize=12.0f
+            holder.countryName.textSize=13.0f
+            holder.countryLanguage.textSize=12.0f
             holder.countryCode.setTextColor(Color.parseColor("#000000"))
             holder.countryLanguage.setTextColor(Color.parseColor("#000000"))
             holder.tick.isVisible=false
@@ -53,18 +55,17 @@ class CountryAdapter(val arr:ArrayList<CountryData>,val context:Context,val str:
         holder.itemView.setOnClickListener {
             val intent=Intent(context,EnterYourPhoneNumber::class.java)
             intent.putExtra("CountryName",country.name)
-            intent.putExtra("CountryCode",((holder.countryCode.text).substring( 1)))
+            intent.putExtra("CountryCode",((holder.countryCode.text).substring(1)))
             context.startActivity(intent)
         }
     }
 
     class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView)
     {
-        var countryFlag=itemView.findViewById<ImageView>(R.id.imageView)
-        var countryName=itemView.findViewById<TextView>(R.id.textView)
-        var countryLanguage=itemView.findViewById<TextView>(R.id.language)
-        var countryCode=itemView.findViewById<TextView>(R.id.countryCode)
-        var tick=itemView.findViewById<ImageView>(R.id.tickOrNot)
-
+        var countryFlag: ImageView =itemView.findViewById(R.id.imageView)
+        var countryName: TextView =itemView.findViewById(R.id.textView)
+        var countryLanguage: TextView =itemView.findViewById(R.id.language)
+        var countryCode: TextView =itemView.findViewById(R.id.countryCode)
+        var tick: ImageView =itemView.findViewById(R.id.tickOrNot)
     }
 }
