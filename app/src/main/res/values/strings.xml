@@ -19,5 +19,17 @@
     <string name="this_doesn_t_answered_my_question">This doesn\'t answered my question</string>
     <string name="india">India</string>
     <string name="_91_">+91</string>
+    <string name="we_will_be_verifying_the_phone_number">We will be verifying the phone number:</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="is_this_ok_or_would_you_like_to_edit_the_number">Is this Ok, or would you like to edit the number?</string>
+    <string name="verify_91_99999_99999">Verify +91 99999 99999</string>
+    <string name="waiting_to_automatically_detect_a_sms_sent_to">Waiting to automatically detect a SMS sent to</string>
+    <string name="_91_99999_99999">+91 99999 99999.</string>
+    <string name="wrong_number">Wrong number?</string>
+    <string name="_">- - - \t - - -</string>
+    <string name="enter_6_digit_code">Enter 6-digit code</string>
+    <string name="resend_sms">\tResend SMS</string>
+    <string name="_1_02">1:02</string>
+    <string name="call_me">\tCall me</string>
 
 </resources>

@@ -99,6 +99,7 @@
         android:layout_marginRight="60dp"
         android:layout_height="2dp"/>
     <EditText
+        android:id="@+id/phoneNumber"
         android:inputType="number"
         android:textColor="@android:color/black"
         android:hint="@string/enter_your_phone_number"
@@ -106,7 +107,8 @@
         android:layout_marginStart="130dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        tools:ignore="TextFields" />
     <LinearLayout
         android:layout_marginTop="201dp"
         android:background="@color/colorPrimary"
@@ -122,6 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
+        android:id="@+id/next_button"
         android:text="@string/next"
         android:textColor="@android:color/white"
         android:background="#00B900"

@@ -1,13 +1,17 @@
 package com.example.whatsapp
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.marginTop
 import androidx.core.widget.addTextChangedListener
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -21,7 +25,7 @@ import java.util.zip.Inflater
 class EnterYourPhoneNumber : AppCompatActivity() {
     private var url="https://restcountries.eu/rest/v2/all"
     private var countryList=HashMap<String,String>()
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_your_phone_number)
@@ -41,6 +45,7 @@ class EnterYourPhoneNumber : AppCompatActivity() {
         spinner.setOnTouchListener { _, _ ->
             val intent=Intent(this, ChooseACountry::class.java)
             intent.putExtra("countryName",str)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             true
         }
@@ -65,9 +70,28 @@ class EnterYourPhoneNumber : AppCompatActivity() {
             adapter= ArrayAdapter(this,android.R.layout.simple_spinner_item, arrayOf(str))
             spinner.adapter=adapter
         }
+        val view=layoutInflater.inflate(R.layout.alert_layout,null)
+        val phoneNumberOfAlertDialog=view.findViewById<TextView>(R.id.phone_Number)
 
-
-
+        next_button.setOnClickListener {
+            phoneNumberOfAlertDialog.text="$countryCode ${phoneNumber.text}"
+           AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .setPositiveButton("OK"
+                ) { dialog, which ->
+                    val intent=Intent(this,Verify::class.java)
+                    intent.putExtra("phoneNumber",(phoneNumber.text).toString())
+                    intent.putExtra("countryCode",countryCode)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+                .setNeutralButton("EDIT"
+                ) { dialog, which ->
+                    Toast.makeText(this,"Please Enter your phone Number again",Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }.show()
+        }
     }
 
     private fun getArrayInitialized() {
