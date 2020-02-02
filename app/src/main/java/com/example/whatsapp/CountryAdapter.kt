@@ -56,6 +56,7 @@ class CountryAdapter(val arr:ArrayList<CountryData>,val context:Context,val str:
             val intent=Intent(context,EnterYourPhoneNumber::class.java)
             intent.putExtra("CountryName",country.name)
             intent.putExtra("CountryCode",((holder.countryCode.text).substring(1)))
+            intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
         }
     }

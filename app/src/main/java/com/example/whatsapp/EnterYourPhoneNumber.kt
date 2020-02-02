@@ -45,7 +45,8 @@ class EnterYourPhoneNumber : AppCompatActivity() {
         spinner.setOnTouchListener { _, _ ->
             val intent=Intent(this, ChooseACountry::class.java)
             intent.putExtra("countryName",str)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags =Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             true
         }
@@ -83,7 +84,8 @@ class EnterYourPhoneNumber : AppCompatActivity() {
                     val intent=Intent(this,Verify::class.java)
                     intent.putExtra("phoneNumber",(phoneNumber.text).toString())
                     intent.putExtra("countryCode",countryCode)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
                 .setNeutralButton("EDIT"
