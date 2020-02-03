@@ -3,8 +3,10 @@ package com.example.whatsapp
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,6 +18,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.internal.InternalTokenProvider
 import kotlinx.android.synthetic.main.activity_verify.*
+import kotlinx.coroutines.*
 import java.util.concurrent.TimeUnit
 
 class Verify : AppCompatActivity() {
@@ -26,6 +29,26 @@ class Verify : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify)
         setSupportActionBar(toolbar)
+//
+//        stopWatch1.text=GeneRateText(63)
+//        stopWatch2.text=GeneRateText(63)
+        GlobalScope.launch(Dispatchers.IO) {
+            for (i in 63 downTo 0 ) {
+                delay(1000)
+                Log.i("MAIN",i.toString())
+                GlobalScope.launch(Dispatchers.Main) {
+                    stopWatch1.text = GeneRateText(i)
+                    stopWatch2.text = GeneRateText(i)
+                }
+            }
+            stopWatchText1.isEnabled=true
+            stopWatchText1.setTextColor(Color.parseColor("#00574B"))
+            imageView1.setImageResource(R.drawable.ic_message_black_24dp)
+            stopWatchText2.isEnabled=true
+            stopWatchText2.setTextColor(Color.parseColor("#00574B"))
+            imageView2.setImageResource(R.drawable.ic_local_phone_black2_24dp)
+        }
+
         val phoneNumberOfVerify=intent.getStringExtra("phoneNumber")!!
         val countryCodeOfVerify= intent.getStringExtra("countryCode")!!
         verify_phoneNumber.text="Verify $countryCodeOfVerify $phoneNumberOfVerify"
@@ -86,9 +109,15 @@ class Verify : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
     }
+    private fun GeneRateText(time: Int): String {
+        return if(time/60>=1 ||  time/10==0) {
+            "${time/60}:0${time%60}"
+        } else {
+            "${time/60}:${time%60}"
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater=menuInflater
         inflater.inflate(R.menu.menu,menu)
