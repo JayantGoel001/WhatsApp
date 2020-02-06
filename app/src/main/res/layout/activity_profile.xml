@@ -30,6 +30,7 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_add_a_photo_black_24dp"
         app:civ_circle_background_color="#E0E0E0"
+        app:civ_border_overlay="false"
         >
     </de.hdodenhof.circleimageview.CircleImageView>
 </LinearLayout>
