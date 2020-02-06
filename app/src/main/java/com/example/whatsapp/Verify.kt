@@ -133,5 +133,15 @@ class Verify : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onStart() {
+        if(mAuthCredential== FirebaseAuth.getInstance().currentUser)
+        {
+            val intent=Intent(this,ProfileActivity::class.java)
+            intent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+        super.onStart()
+    }
+
 
 }
