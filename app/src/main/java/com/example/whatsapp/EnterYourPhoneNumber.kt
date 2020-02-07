@@ -31,7 +31,7 @@ class EnterYourPhoneNumber : AppCompatActivity() {
         setContentView(R.layout.activity_enter_your_phone_number)
         setSupportActionBar(toolbar)
         getArrayInitialized()
-        var countryCode= "+91"
+        var countryCode: String
         var str:String = if(intent.getStringExtra("CountryName")==null) {
             countryCode="+91"
             "India"
@@ -80,7 +80,7 @@ class EnterYourPhoneNumber : AppCompatActivity() {
                 .setView(view)
                 .setCancelable(false)
                 .setPositiveButton("OK"
-                ) { dialog, which ->
+                ) { _, _ ->
                     val intent=Intent(this,Verify::class.java)
                     intent.putExtra("phoneNumber",(phoneNumber.text).toString())
                     intent.putExtra("countryCode",countryCode)
@@ -89,7 +89,7 @@ class EnterYourPhoneNumber : AppCompatActivity() {
                     startActivity(intent)
                 }
                 .setNeutralButton("EDIT"
-                ) { dialog, which ->
+                ) { dialog, _ ->
                     Toast.makeText(this,"Please Enter your phone Number again",Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                 }.show()

@@ -33,5 +33,6 @@
     <string name="call_me">\tCall me</string>
     <string name="profile_info">Profile Info</string>
     <string name="please_provide_your_name_and_an_optional_profile_photo">Please provide your name and an optional profile photo</string>
+    <string name="type_your_name_here">Type your name here</string>
 
 </resources>
